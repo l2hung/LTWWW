@@ -90,3 +90,8 @@ public class NhanVien {
 	}
 
 }
+
+//INSERT INTO NHANVIEN (MANV, TENNV, EMAIL, DIACHI, DIENTHOAI, MAPHONGBAN)
+//VALUES ('NV001', 'Nguyen Van A', 'nguyenvana@example.com', '123 Đường ABC', '0123456789', 'PB01');
+
+

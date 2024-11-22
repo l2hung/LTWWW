@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Product</title>
+</head>
+<body>
+
+    <h2>Edit Product</h2>
+    <form method="post" role="form" th:action="@{/update/{id}(id=${product.iD})}" th:object="${product}">
+        <input type="hidden" name="id" th:field="*{iD}"> <!-- ID sản phẩm, ẩn đi -->
+        <table>
+            <tr>
+                <td><label for="code">Product Code:</label></td>
+                <td><input type="text" id="code" name="code" th:field="*{code}" required maxlength="10"></td>
+                <td><p th:if="${#fields.hasErrors('code')}" th:errors="*{code}" class="text-danger"></p></td>
+            </tr>
+            <tr>
+                <td><label for="name">Product Name:</label></td>
+                <td><input type="text" id="name" name="name" th:field="*{name}" required maxlength="50"></td>
+                <td><p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></p></td>
+            </tr>
+            <tr>
+                <td><label for="description">Product Description:</label></td>
+                <td><textarea id="description" name="description" th:field="*{description}"></textarea></td>
+                <td><p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger"></p></td>
+            </tr>
+            <tr>
+                <td><label for="price">Product Price:</label></td>
+                <td><input type="number" id="price" name="price" th:field="*{price}" required min="0.01" step="0.01"></td>
+                <td><p th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="text-danger"></p></td>
+            </tr>
+            <tr>
+                <td><label for="category">Category:</label></td>
+                <td>
+                    <select id="category" name="category" th:field="*{category}" required>
+                        <option value="" disabled>Select a category</option>
+                        <th:block th:each="category : ${categories}">
+                            <option th:value="${category.id}" th:text="${category.name}" th:selected="${category.id == product.category.id}"></option>
+                        </th:block>
+                    </select>
+                </td>
+                <td><p th:if="${#fields.hasErrors('category')}" th:errors="*{category}" class="text-danger"></p></td>
+            </tr>
+            <tr>
+                <td><label for="is_active">Active:</label></td>
+                <td>
+                    <input type="radio" id="is_active_yes" name="is_active" th:field="*{isActive}" value="true" th:checked="${product.isActive}">
+                    <label for="is_active_yes">Yes</label>
+                    <input type="radio" id="is_active_no" name="is_active" th:field="*{isActive}" value="false" th:checked="${!product.isActive}">
+                    <label for="is_active_no">No</label>
+                </td>
+                <td><p th:if="${#fields.hasErrors('isActive')}" th:errors="*{isActive}" class="text-danger"></p></td>
+            </tr>
+            <tr>
+                <td><label for="registerDate">Register Date:</label></td>
+                <td><input type="date" id="registerDate" name="registerDate" th:field="*{registerDate}" required></td>
+                <td><p th:if="${#fields.hasErrors('registerDate')}" th:errors="*{registerDate}" class="text-danger"></p></td>
+            </tr>
+        </table>
+
+        <div>
+            <button type="submit">Save Changes</button>
+            <a th:href="@{/listProduct}">Back to Product List</a>
+        </div>
+    </form>
+
+</body>
+</html>

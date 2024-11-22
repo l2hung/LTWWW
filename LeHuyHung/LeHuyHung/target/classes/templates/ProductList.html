@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Product List</title>
+</head>
+<body>
+
+
+           <h3> <a href="/addProduct">Thêm sản phẩm</a></h3>
+
+
+    <h1>Products</h1>
+    <!-- Search Form -->
+    <form method="post" th:action="@{/listProduct}" role="form">
+        <table>
+            <tr>
+                <!-- Category Filter -->
+                <td>
+                    <label for="category">Category:</label>
+                    <select id="category" name="category">
+                        <option value="">All Categories</option>
+                        <th:block th:each="category : ${categories}">
+                            <option th:value="${category.id}" th:text="${category.name}"></option>
+                        </th:block>
+                    </select>
+                </td>
+
+                <!-- Active Filter -->
+                <td>
+                    <label for="active">Active:</label>
+                    <select id="active" name="active">
+                        <option value="">All</option>
+                        <option value="true">Active</option>
+                        <option value="false">Inactive</option>
+                    </select>
+                </td>
+
+                <!-- Date Range Filter -->
+                <td>
+                    <label for="dateRange">Date Range:</label>
+                    <select id="dateRange" name="dateRange">
+                        <option value="">All Dates</option>
+                        <option value="7days">Last 7 Days</option>
+                        <option value="1month">Last 1 Month</option>
+                        <option value="2months">Last 2 Months</option>
+                    </select>
+                </td>
+
+                <!-- Search Button -->
+                <td>
+                    <button type="submit">Search</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <!-- Product Table -->
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Code</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="product : ${products}">
+                <td th:text="${product.iD}"></td>
+                <td th:text="${product.code}"></td>
+                <td th:text="${product.name}"></td>
+				<td>
+					<form th:action="@{/update/{id}(id=${product.iD})}" method="get">
+						<button type="submit">Update</button>
+					</form>
+				</td>
+				<td>
+					<form th:action="@{/delete/{id}(id=${product.iD})}" method="post">
+						<button type="submit">Delete</button>
+					</form>
+				</td>
+
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

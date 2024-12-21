@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Danh Sách Chuyến Bay</title>
+    <script type="text/javascript">
+	    function confirmDelete(flightId) {
+	        if (confirm("Bạn có chắc chắn muốn xóa chuyến bay này?")) {
+	            window.location.href = url ; 
+	        }
+	    }
+	</script>
+</head>
+<body>
+    <h1>STT_15_LeHuyHung_21066381</h1>
+    <h1>Danh Sách Chuyến Bay</h1>
+    <a th:href="@{/flights/add}">Thêm Chuyến Bay</a>
+    <table>
+        <thead>
+            <tr>
+                <th>Airplane Name</th>
+                <th>Departure Airport</th>
+                <th>Arrival Airport</th>
+                <th>Departure Date</th>
+                <th>Arrival Date</th>
+                <th>Seat Fare</th>
+                <th>Flight Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="flight : ${flights}">
+                <td th:text="${flight.airplaneName}"></td>
+                <td th:text="${flight.departureAirport}"></td>
+                <td th:text="${flight.arrivalAirport}"></td>
+                <td th:text="${flight.departureDate}"></td>
+                <td th:text="${flight.arrivalDate}"></td>
+                <td th:text="${flight.seatFare}"></td>
+                <td th:text="${flight.flightStatus ? 'Scheduled' : 'New'}"></td>
+                <td>
+				    <!-- Hiển thị liên kết xóa chỉ khi flightStatus là false (New) -->
+				      <a th:if="${!flight.flightStatus}" th:href="@{/flights/delete/{id}(id=${flight.flightId})}" onclick="confirmDelete(this.href)">Xóa</a>
+				</td>
+
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

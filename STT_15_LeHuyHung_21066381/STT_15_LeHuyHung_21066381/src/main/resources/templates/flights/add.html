@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Thêm Chuyến Bay</title>
+</head>
+<body>
+    <h1>Thêm Chuyến Bay</h1>
+    <form th:action="@{/flights}" th:object="${flight}" method="post">
+        <label>Airplane Name:</label>
+        <input type="text" th:field="*{airplaneName}" required><br>
+
+        <label>Departure Airport:</label>
+        <input type="text" th:field="*{departureAirport}" required><br>
+
+        <label>Arrival Airport:</label>
+        <input type="text" th:field="*{arrivalAirport}" required><br>
+
+        <label>Departure Date:</label>
+        <input type="date" th:field="*{departureDate}" required><br>
+
+        <label>Arrival Date:</label>
+        <input type="date" th:field="*{arrivalDate}" required><br>
+
+        <label>Seat Fare:</label>
+        <input type="number" th:field="*{seatFare}" required><br>
+
+        <label>Flight Status:</label>
+        <select th:field="*{flightStatus}">
+            <option value="true">Scheduled</option>
+            <option value="false">New</option>
+        </select><br>
+
+        <button type="submit">Save</button>
+    </form>
+</body>
+</html>
